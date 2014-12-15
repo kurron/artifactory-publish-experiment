@@ -5,7 +5,11 @@ defaultTasks << 'publish'
 publishing {
     repositories {
         maven {
-            url "$buildDir/local-repository"
+            url = 'http://192.168.254.81:81/artifactory/publishing-test'
+            credentials {
+                username = 'SVNBuild'
+                password = 'Snoopy*09'
+            }
         }
     }
 
