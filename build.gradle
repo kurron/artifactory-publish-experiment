@@ -13,11 +13,40 @@ buildscript {
     }
 }
 
+group = 'kurron.org'
+version = '0.0.9'
+status = 'experimental'
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot' 
 apply plugin: 'ivy-publish'
+
+    task sourceJar(type: Jar) {
+        from sourceSets.main.java
+        classifier "source"
+    }
+
+publishing {
+        repositories {
+            ivy {
+                // change to point to your repo, e.g. http://my.org/repo
+                url "$buildDir/local-repository"
+            }
+        }
+
+        publications {
+            ivy( IvyPublication ) {
+                organisation 'org.kurron.sample'
+                module 'publishing-sample'
+                revision '0.1.2'
+                descriptor.status = 'milestone'
+                descriptor.branch = 'testing'
+                from components.java
+            }
+        }
+    }
 
 jar {
     baseName = 'demo'
@@ -32,8 +61,8 @@ repositories {
 
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    compile("org.springframework.boot:spring-boot-starter-actuator:1.2.0.RELEASE")
+    testCompile("org.springframework.boot:spring-boot-starter-test:1.2.0.RELEASE")
 }
 
 eclipse {
