@@ -21,6 +21,8 @@ apply plugin: 'java'
 apply plugin: 'spring-boot' 
 apply plugin: 'ivy-publish'
 
+apply from: "$rootDir/gradle/artifactory.gradle"
+
 task sourceJar(type: Jar) {
     from sourceSets.main.java
     classifier 'source'
@@ -29,7 +31,6 @@ task sourceJar(type: Jar) {
 publishing {
         repositories {
             ivy {
-                // change to point to your repo, e.g. http://my.org/repo
                 url "$buildDir/local-repository"
             }
         }
@@ -61,4 +62,4 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test:1.2.0.RELEASE")
 }
  
-defaultTasks = ['clean', 'build', 'publish']
+defaultTasks = ['clean', 'build', 'publish', 'artifactoryPublish']
