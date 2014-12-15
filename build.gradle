@@ -20,7 +20,8 @@ defaultTasks << 'clean'
 defaultTasks << 'build'
 
 //apply from: "$rootDir/gradle/artifactory.gradle"
-apply from: "$rootDir/gradle/ivy-publish.gradle"
+//apply from: "$rootDir/gradle/ivy-publish.gradle"
+apply from: "$rootDir/gradle/maven-publish.gradle"
 
 task sourceJar(type: Jar) {
     from sourceSets.main.java

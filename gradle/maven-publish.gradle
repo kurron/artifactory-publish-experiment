@@ -1,0 +1,21 @@
+apply plugin: 'maven-publish'
+
+defaultTasks << 'publish'
+
+publishing {
+    repositories {
+        maven {
+            url "$buildDir/local-repository"
+        }
+    }
+
+    publications {
+        ivy( MavenPublication ) {
+            from components.java
+
+            artifact(sourceJar) {
+                classifier = 'source'
+            }
+        }
+    }
+}
