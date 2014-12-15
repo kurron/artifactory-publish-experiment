@@ -1,0 +1,25 @@
+apply plugin: 'ivy-publish'
+
+
+publishing {
+    repositories {
+        ivy {
+            url "$buildDir/local-repository"
+        }
+    }
+
+    publications {
+        ivy( IvyPublication ) {
+            descriptor.status = 'milestone'
+            descriptor.branch = 'testing'
+            from components.java
+
+            artifact(sourceJar) {
+                type = 'source'
+                conf = 'runtime'
+            }
+        }
+    }
+}
+
+defaultTasks << 'publish'

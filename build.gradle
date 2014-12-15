@@ -13,41 +13,19 @@ buildscript {
     }
 }
 
-//group = 'org.kurron'
-//version = '0.0.9'
-//status = 'experimental'
-
 apply plugin: 'java'
 apply plugin: 'spring-boot' 
-apply plugin: 'ivy-publish'
 
-apply from: "$rootDir/gradle/artifactory.gradle"
+defaultTasks << 'clean'
+defaultTasks << 'build'
+
+//apply from: "$rootDir/gradle/artifactory.gradle"
+apply from: "$rootDir/gradle/ivy-publish.gradle"
 
 task sourceJar(type: Jar) {
     from sourceSets.main.java
     classifier 'source'
 }
-
-publishing {
-        repositories {
-            ivy {
-                url "$buildDir/local-repository"
-            }
-        }
-
-        publications {
-            ivy( IvyPublication ) {
-                descriptor.status = 'milestone'
-                descriptor.branch = 'testing'
-                from components.java
-
-                artifact(sourceJar) {
-                    type = 'source'
-                    conf = 'runtime'
-                }
-            }
-        }
-    }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -62,4 +40,3 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test:1.2.0.RELEASE")
 }
  
-defaultTasks = ['clean', 'build', 'publish', 'artifactoryPublish']
