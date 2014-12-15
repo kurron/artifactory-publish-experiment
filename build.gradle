@@ -3,10 +3,13 @@ buildscript {
         springBootVersion = '1.2.0.RELEASE'
     }
     repositories {
-        mavenCentral()
+        jcenter()
+//      mavenCentral()
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local' }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '3.0.x-SNAPSHOT')
     }
 }
 
@@ -14,6 +17,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot' 
+apply plugin: 'com.jfrog.artifactory'
 
 jar {
     baseName = 'demo'
